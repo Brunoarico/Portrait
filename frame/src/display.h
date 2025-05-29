@@ -151,7 +151,6 @@ void displayStartTransmission(){
   delay(2);
 }
 
-
 byte convertPixel(byte input, byte mask, int shift) {
     byte value = (input & mask) >> shift;
     switch (value) {
@@ -215,6 +214,24 @@ void updateDisplay_withoutIdle() {
   sendCommand(0x02);  // POWER_OFF
   waitForIdle();
   sendCommand1(0x07, 0xA5);  // DEEP_SLEEP*/
+}
+
+void setPartialWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
+  sendCommand(0x90); // PARTIAL_WINDOW
+  sendData(x >> 8);
+  sendData(x & 0xFF);
+  sendData((x + w - 1) >> 8);
+  sendData((x + w - 1) & 0xFF);
+  sendData(y >> 8);
+  sendData(y & 0xFF);
+  sendData((y + h - 1) >> 8);
+  sendData((y + h - 1) & 0xFF);
+  sendData(0x01); // Enable partial
+  sendCommand(0x91); // PARTIAL_IN
+}
+
+void partialOut() {
+  sendCommand(0x92); // PARTIAL_OUT
 }
 
 #endif  // display_h

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="batterysvg.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.3704836"
+     inkscape:cx="373.7634"
+     inkscape:cy="552.84079"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       id="rect246"
+       width="52.790504"
+       height="41.118164"
+       x="78.604752"
+       y="127.94092"
+       style="fill:#ffffff;stroke-width:0.264583"
+       inkscape:export-filename="/home/whitefox/battery.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:#000000;stroke-width:0.264583"
+       d="m 117.04229,162.65643 -2.76232,-2.77175 -14.695448,-0.0725 -14.69546,-0.0725 -0.89072,-0.63529 c -1.76781,-1.26083 -1.87508,-1.86465 -1.88159,-10.59211 -0.006,-7.3725 0.0238,-7.84891 0.54877,-8.93343 0.36978,-0.76388 0.92855,-1.36477 1.67689,-1.80332 1.01758,-0.59634 1.40343,-0.65773 4.13468,-0.65773 h 3.01236 l -1.78177,-1.79553 -1.78176,-1.79553 1.00103,-0.97748 1.00104,-0.97749 16.074338,16.07596 16.07434,16.07597 -0.87932,0.85226 c -0.48362,0.46875 -0.99483,0.85227 -1.13603,0.85227 -0.14119,0 -1.49975,-1.24729 -3.01903,-2.77176 z m -5.5626,-5.51238 c 0,-0.0451 -3.83977,-3.91426 -8.53281,-8.59809 l -8.532818,-8.51604 -4.2125,-8.8e-4 c -3.54929,-7.4e-4 -4.28867,0.0681 -4.69635,0.43702 -0.44745,0.40494 -0.48385,1.01215 -0.48385,8.0698 0,7.27913 0.0245,7.65637 0.52916,8.16108 0.51447,0.51446 0.88195,0.52916 13.22917,0.52916 6.984998,0 12.699998,-0.0369 12.699998,-0.0821 z m 8.61837,0.36691 -0.74104,-0.77348 0.0442,-7.71807 c 0.038,-6.63193 -0.0145,-7.80765 -0.37289,-8.35465 l -0.4171,-0.63657 h -8.00658 -8.00659 l -1.44617,-1.4646 -1.446168,-1.4646 9.836708,0.0755 c 9.50504,0.073 9.86189,0.0942 10.58333,0.62903 1.17785,0.87317 1.88757,2.13172 2.08266,3.69319 l 0.18015,1.44185 h 1.97424 c 1.82928,0 2.03103,0.0568 2.74764,0.7734 l 0.77339,0.7734 v 3.93023 c 0,4.29966 -0.12995,4.74946 -1.59042,5.50469 -0.42544,0.22001 -1.45855,0.39537 -2.32922,0.39537 h -1.56468 l -0.16382,1.19518 c -0.1702,1.24173 -0.8265,2.77357 -1.18832,2.77357 -0.11455,0 -0.54175,-0.34807 -0.94933,-0.77348 z m 5.00767,-9.01611 v -2.77812 l -1.38906,-0.08 -1.38907,-0.08 v 2.93807 2.93808 l 1.38907,-0.08 1.38906,-0.08 z"
+       id="path21"
+       sodipodi:nodetypes="ccccscssscccccccsssccscssscsccccssccccccsscsscssscssccccccccccc"
+       inkscape:export-filename="/home/whitefox/battery.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>
