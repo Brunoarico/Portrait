@@ -2,6 +2,8 @@
 
 This project implements an **ultra-low power digital photo frame** based on an e-ink display and ESP32, powered by a Li-ion battery and remotely controlled via Firebase.
 
+![Portrait Eink](images/portrait_now.jpg)
+
 ![e-ink display](https://alcom.be/uploads/Eink_AC057TC1_Specs-sheet.pdf)
 
 ---

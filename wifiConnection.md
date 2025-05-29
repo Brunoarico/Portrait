@@ -1,8 +1,3 @@
-# 🖼️ Porta-Retrato Digital Wi-Fi com Tela eInk
-
-Este projeto transforma uma tela eInk em um **porta-retrato digital de baixo consumo**, conectado via Wi-Fi, que carrega imagens da nuvem usando o Firebase.
-
----
 
 ## 🔧 Primeira Configuração — Como Conectar
 
