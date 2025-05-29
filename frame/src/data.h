@@ -14,7 +14,8 @@ String listUrl = baseUrl + "/getImages";
 String getUrlBase = baseUrl + "/getImageUrl";
 String deleteUrlBase = baseUrl + "/deleteImage";
 String firebaseUrl = baseUrl + "/uploadStatus"; 
-const char* token = "seu-token-secreto-aqui";
+//Add your Firebase token here
+const char* token = "";
 const char* ntpServer = "pool.ntp.org";
 
 #endif  // data_h
