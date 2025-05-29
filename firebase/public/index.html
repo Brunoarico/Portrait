@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Porta Retrato</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        margin: 0;
+        padding: 20px;
+        color: #e0e0e0;
+      }
+    
+      h1, h2 {
+        text-align: center;
+        color: #ff5252;
+      }
+    
+      #loginBox,
+      #uploadBox {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
+    
+      input[type="email"],
+      input[type="password"],
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #444;
+        background-color: #2c2c2c;
+        color: #e0e0e0;
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
+    
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #ff5252;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+      }
+    
+      button:hover {
+        background-color: #e53935;
+      }
+    
+      #previewContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+      }
+    
+      #previewContainer img {
+        border-radius: 12px;
+        transition: transform 0.2s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        border: 2px solid #333;
+      }
+    
+      #previewContainer img:hover {
+        transform: scale(1.05);
+        border-color: #ff5252;
+      }
+    
+      p {
+        text-align: center;
+        color: #aaa;
+      }
+    </style>
+    
+  </head>
+  <body>
+    <h1>Porta Retrato</h1>
+
+    <div id="loginBox">
+      <input type="email" id="email" placeholder="Email" /><br />
+      <input type="password" id="password" placeholder="Senha" /><br />
+      <button onclick="login()">Login</button>
+    </div>
+
+    <div id="uploadBox" style="display:none;">
+      <input type="file" id="fileInput" />
+      <button onclick="upload()">Adicionar</button>
+
+      <h2>Imagens armazenadas</h2>
+      <div id="previewContainer" style="display:flex; flex-wrap: wrap;"></div>
+    </div>
+
+    <script>
+      // Configuração Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyCNgVUSUPTsNtV7bNyUP7zWGwqvh2LvXzQ",
+        authDomain: "portrait-8a761.firebaseapp.com",
+        projectId: "portrait-8a761",
+        storageBucket: "portrait-8a761.appspot.com",
+        messagingSenderId: "93460369660",
+        appId: "1:93460369660:web:cab2d4d9e5009975ed8779"
+      };
+      const baseFunctionUrl = `https://us-central1-${firebaseConfig.projectId}.cloudfunctions.net`;
+
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const storage = firebase.storage();
+
+      function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        auth.signInWithEmailAndPassword(email, password)
+          .then(() => {
+            document.getElementById("loginBox").style.display = "none";
+            document.getElementById("uploadBox").style.display = "block";
+            showPreviews(); // carrega previews após login
+          })
+          .catch((error) => {
+            alert("Erro: " + error.message);
+          });
+      }
+
+      async function upload() {
+        const fileInput = document.getElementById("fileInput");
+        if (!fileInput.files.length) {
+          alert("Selecione um arquivo JPG.");
+          return;
+        }
+
+        const file = fileInput.files[0];
+        if (!file.type.startsWith("image/jpeg")) {
+          alert("Somente imagens JPG são permitidas.");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+          const response = await fetch("${baseFunctionUrl}/uploadImage", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            const errText = await response.text();
+            throw new Error(errText);
+          }
+
+          const result = await response.json();
+          showPreviews();
+          alert("Upload feito com sucesso");
+        } catch (err) {
+          alert("Erro no upload: " + err.message);
+        }
+      }
+
+      async function showPreviews() {
+        const previewContainer = document.getElementById('previewContainer');
+        previewContainer.innerHTML = '';
+
+        try {
+          const token = await auth.currentUser.getIdToken();
+          const response = await fetch(
+            "${baseFunctionUrl}/listImages",
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Erro ao buscar imagens do servidor.");
+          }
+
+          const data = await response.json();
+          const images = data.images || [];
+
+          if (images.length === 0) {
+            previewContainer.innerHTML = "<p>Nenhuma imagem encontrada.</p>";
+            return;
+          }
+
+          images.forEach((img) => {
+            if (img.name.length > 0) {
+              const image = document.createElement("img");
+              image.src = img.url;
+              image.alt = img.name;
+              image.style.width = "100px";
+              image.style.height = "100px";
+              image.style.objectFit = "cover";
+              image.style.margin = "5px";
+              image.style.cursor = 'pointer';
+              image.title = 'Clique para deletar';
+              image.onclick = async () => {
+                const confirmDelete = confirm(`Deseja apagar a imagem: ${img.name}?`);
+                if (confirmDelete) {
+                  try {
+                    const token = await auth.currentUser.getIdToken();
+                    const response = await fetch(
+                      "${baseFunctionUrl}/deleteImage",
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: "Bearer " + token,
+                        },
+                        body: JSON.stringify({ imageName: img.name }),
+                      }
+                    );
+                    if (!response.ok) {
+                      throw new Error("Falha ao deletar a imagem");
+                    }
+                    alert("Imagem deletada com sucesso.");
+                    showPreviews(); // Atualiza a lista após deletar
+                  } catch (deleteErr) {
+                    alert("Erro ao deletar imagem: " + deleteErr.message);
+                  }
+                }
+              };
+              previewContainer.appendChild(image);
+            }
+          });
+
+        } catch (error) {
+          console.error(error);
+          alert("Erro ao carregar imagens: " + error.message);
+        }
+      }
+
+    </script>
+  </body>
+</html>
